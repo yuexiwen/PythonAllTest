@@ -6,6 +6,7 @@ from CosmosDBTest.SleepRun import SleepRun
 
 class UUIDGenerator(SleepRun):
     def __init__(self, size=10):
+        super().__init__()
         self.__lst = []
         self.__size = size
         self.__lock = rwlock.RWLockFairD()
@@ -26,7 +27,8 @@ class UUIDGenerator(SleepRun):
         :return: __lst
         """
         with self.__lock.gen_rlock():
-            return self.__lst
+            lst = [x for x in self.__lst]
+            return lst
 
     def action(self):
         self.generate_ids()

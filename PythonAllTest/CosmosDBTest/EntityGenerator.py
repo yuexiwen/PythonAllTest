@@ -8,7 +8,7 @@ class EntityGenerator(ABC):
         self.document_lst = []
 
     def set_primary_key(self, primary_key_lst: list):
-        self.primary_key_lst = [x for x in primary_key_lst]
+        self.primary_key_lst = primary_key_lst
 
     @abstractmethod
     def random_generate_field(self):

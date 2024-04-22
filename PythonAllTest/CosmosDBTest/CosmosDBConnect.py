@@ -23,4 +23,8 @@ class CosmosDBConnect:
                 self.container.patch_item(item=str(doc_id[i]), partition_key=str(doc_id[i]), patch_operations=operations[i])
             except exceptions.CosmosResourceNotFoundError:
                 print(f"cannot find {str(doc_id[i])} in container, now create it")
-                self.container.create_item(body=documents[i])
+                try:
+                    self.container.create_item(body=documents[i])
+                except exceptions.CosmosHttpResponseError:
+                    print(f"{str(doc_id[i])} already exist in container, update it")
+                    self.container.patch_item(item=str(doc_id[i]), partition_key=str(doc_id[i]), patch_operations=operations[i])
